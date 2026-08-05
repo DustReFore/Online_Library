@@ -10,7 +10,7 @@ public class Admin {
 
     private String position;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
