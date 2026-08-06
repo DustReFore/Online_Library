@@ -1,8 +1,54 @@
-function HomePage() {
-    return (
-        <div>
+import { useEffect, useState } from 'react'
+import BookList from '../Components/BookList.jsx'
+import SearchBar from '../Components/SearchBar.jsx'
 
-        </div>
+function HomePage() {
+    const [books, setBooks] = useState([])
+    const [searchTerm, setSearchTerm] = useState('')
+
+    useEffect(() => {
+        fetch('http://localhost:8080/api/books')
+            .then((response) => response.json())
+            .then((data) => setBooks(data))
+            .catch((error) => console.error('Error loading books:', error))
+    }, [])
+
+    const filteredBooks = books.filter((book) => {
+        const searchValue = searchTerm.toLowerCase()
+
+        return (
+            book.title?.toLowerCase().includes(searchValue) ||
+            book.author?.firstName?.toLowerCase().includes(searchValue) ||
+            book.author?.lastName?.toLowerCase().includes(searchValue) ||
+            book.category?.name?.toLowerCase().includes(searchValue)
+        )
+    })
+
+    return (
+        <main>
+            <section className="bg-light py-5">
+                <div className="container text-center">
+                    <h1 className="display-5 fw-bold">Online Library</h1>
+                    <p className="lead text-muted">
+                        Search, reserve and manage books in one simple web application.
+                    </p>
+                </div>
+            </section>
+
+            <section id="catalog" className="py-5">
+                <div className="container">
+                    <h2 className="mb-4">Book Catalog</h2>
+
+                    <SearchBar
+                        searchTerm={searchTerm}
+                        onSearchChange={setSearchTerm}
+                    />
+
+                    <BookList books={filteredBooks} />
+                </div>
+            </section>
+        </main>
     )
 }
-export default HomePage;
+
+export default HomePage
