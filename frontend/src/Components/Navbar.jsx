@@ -18,10 +18,19 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="mainNavbar">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <a className="nav-link active" href="#">Home</a>
+                            <a className="nav-link active" href="/">Home</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#catalog">Catalog</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/add-author">Add Author</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/add-category">Add Category</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/add-book">Add Book</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#login">Login</a>
