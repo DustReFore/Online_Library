@@ -1,6 +1,6 @@
-import BookCard from './BookCard'
+import BookCard from './BookCard.jsx'
 
-function BookList({ books }) {
+function BookList({ books, onDelete }) {
     if (books.length === 0) {
         return (
             <div className="alert alert-warning">
@@ -12,12 +12,18 @@ function BookList({ books }) {
     return (
         <div className="row g-4">
             {books.map((book) => (
-                <div className="col-12 col-md-6 col-lg-4" key={book.id}>
-                    <BookCard book={book} />
+                <div
+                    className="col-12 col-md-6 col-lg-4"
+                    key={book.id}
+                >
+                    <BookCard
+                        book={book}
+                        onDelete={onDelete}
+                    />
                 </div>
             ))}
         </div>
     )
 }
 
-export default BookList;
+export default BookList

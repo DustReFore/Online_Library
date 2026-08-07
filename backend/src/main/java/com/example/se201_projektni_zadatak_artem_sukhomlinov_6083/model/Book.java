@@ -9,7 +9,10 @@ public class Book {
     private Long id;
 
     private String title;
+
+    @Column(name = "publication_year")
     private int year;
+
     private boolean available = true;
 
     @ManyToOne

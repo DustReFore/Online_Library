@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getBooks } from "../api/booksApi.js";
+import { deleteBook, getBooks } from '../api/booksApi.js'
 import BookList from '../Components/BookList.jsx'
 import SearchBar from '../Components/SearchBar.jsx'
 
@@ -24,6 +24,27 @@ function HomePage() {
         )
     })
 
+    async function handleDelete(id) {
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this book?'
+        )
+
+        if (!confirmed) {
+            return
+        }
+
+        try {
+            await deleteBook(id)
+
+            setBooks((currentBooks) =>
+                currentBooks.filter((book) => book.id !== id)
+            )
+        } catch (error) {
+            console.error('Error deleting book:', error)
+            alert('Error while deleting book.')
+        }
+    }
+
     return (
         <main>
             <section className="bg-light py-5">
@@ -44,7 +65,10 @@ function HomePage() {
                         onSearchChange={setSearchTerm}
                     />
 
-                    <BookList books={filteredBooks} />
+                    <BookList
+                        books={filteredBooks}
+                        onDelete={handleDelete}
+                    />
                 </div>
             </section>
         </main>

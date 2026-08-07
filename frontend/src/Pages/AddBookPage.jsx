@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react'
-import { createBook } from '../api/booksApi.js'
+import { createBook, getBookById, updateBook } from '../api/booksApi.js'
 import { getAuthors } from '../api/authorsApi.js'
 import { getCategories } from '../api/categoriesApi.js'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 function AddBookPage() {
+    const { id } = useParams()
+    const navigate = useNavigate()
+    const isEdit = Boolean(id)
+
     const [book, setBook] = useState({
         title: '',
         year: '',
         authorId: '',
         categoryId: '',
+        available: true,
     })
 
     const [authors, setAuthors] = useState([])
@@ -17,17 +23,35 @@ function AddBookPage() {
 
     useEffect(() => {
         getAuthors()
-            .then((data) => setAuthors(data))
+            .then(setAuthors)
             .catch(() => setMessage('Error while loading authors.'))
 
         getCategories()
-            .then((data) => setCategories(data))
+            .then(setCategories)
             .catch(() => setMessage('Error while loading categories.'))
-    }, [])
+
+        if (isEdit) {
+            getBookById(id)
+                .then((loadedBook) => {
+                    setBook({
+                        title: loadedBook.title,
+                        year: loadedBook.year,
+                        authorId: loadedBook.author?.id ?? '',
+                        categoryId: loadedBook.category?.id ?? '',
+                        available: loadedBook.available,
+                    })
+                })
+                .catch(() => setMessage('Error while loading book.'))
+        }
+    }, [id, isEdit])
 
     function handleChange(event) {
-        const { name, value } = event.target
-        setBook({ ...book, [name]: value })
+        const { name, value, checked, type } = event.target
+
+        setBook((currentBook) => ({
+            ...currentBook,
+            [name]: type === 'checkbox' ? checked : value,
+        }))
     }
 
     function handleSubmit(event) {
@@ -36,26 +60,31 @@ function AddBookPage() {
         const requestBody = {
             title: book.title,
             year: Number(book.year),
-            available: true,
-            author: {
-                id: Number(book.authorId),
-            },
-            category: {
-                id: Number(book.categoryId),
-            },
+            available: book.available,
+            authorId: Number(book.authorId),
+            categoryId: Number(book.categoryId),
         }
 
-        createBook(requestBody)
-            .then(() => {
-                setMessage('Book added successfully.')
-                setBook({ title: '', year: '', authorId: '', categoryId: '' })
+        const request = isEdit
+            ? updateBook(id, requestBody)
+            : createBook(requestBody)
+
+        request
+            .then(() => navigate('/'))
+            .catch(() => {
+                setMessage(
+                    isEdit
+                        ? 'Error while updating book.'
+                        : 'Error while adding book.'
+                )
             })
-            .catch(() => setMessage('Error while adding book.'))
     }
 
     return (
         <div className="container py-5">
-            <h2 className="mb-4">Add Book</h2>
+            <h2 className="mb-4">
+                {isEdit ? 'Edit Book' : 'Add Book'}
+            </h2>
 
             {message && <div className="alert alert-info">{message}</div>}
 
@@ -119,7 +148,28 @@ function AddBookPage() {
                     </select>
                 </div>
 
-                <button className="btn btn-primary">Save book</button>
+                <div className="form-check mb-3">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="available"
+                        name="available"
+                        checked={book.available}
+                        onChange={handleChange}
+                    />
+
+                    <label className="form-check-label" htmlFor="available">
+                        Available
+                    </label>
+                </div>
+
+                <button type="submit" className="btn btn-primary">
+                    {isEdit ? 'Save changes' : 'Save book'}
+                </button>
+
+                <Link to="/" className="btn btn-secondary ms-2">
+                    Cancel
+                </Link>
             </form>
         </div>
     )

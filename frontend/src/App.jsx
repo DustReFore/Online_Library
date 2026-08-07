@@ -15,6 +15,7 @@ function App() {
                 <Route path="/add-author" element={<AddAuthorPage />} />
                 <Route path="/add-category" element={<AddCategoryPage />} />
                 <Route path="/add-book" element={<AddBookPage />} />
+                <Route path="/edit-book/:id" element={<AddBookPage />} />
             </Routes>
         </>
     );
