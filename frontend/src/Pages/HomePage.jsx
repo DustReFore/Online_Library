@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { getBooks } from "../api/booksApi.js";
 import BookList from '../Components/BookList.jsx'
 import SearchBar from '../Components/SearchBar.jsx'
 
@@ -7,10 +8,9 @@ function HomePage() {
     const [searchTerm, setSearchTerm] = useState('')
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/books')
-            .then((response) => response.json())
+        getBooks()
             .then((data) => setBooks(data))
-            .catch((error) => console.error('Error loading books:', error))
+            .catch((error) => console.error('Error loading books', error))
     }, [])
 
     const filteredBooks = books.filter((book) => {

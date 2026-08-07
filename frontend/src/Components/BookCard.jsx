@@ -5,11 +5,11 @@ function BookCard({book}) {
                 <h5 className="card-title">{book.title}</h5>
 
                 <p className="card-text mb-1">
-                    <strong>Author:</strong> {book.author}
+                    <strong>Author:</strong> {book.author?.firstName} {book.author?.lastName}
                 </p>
 
                 <p className="card-text mb-1">
-                    <strong>Category:</strong> {book.category}
+                    <strong>Category:</strong> {book.category?.name}
                 </p>
 
                 <p className="card-text mb-1">

@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom"
 import HomePage from './pages/HomePage.jsx'
 import AddAuthorPage from './pages/AddAuthorPage.jsx'
 import AddBookPage from './pages/AddBookPage.jsx'
-import AddCategoryPage from "./Pages/AddCategoryPage.jsx";
+import AddCategoryPage from "./pages/AddCategoryPage.jsx";
 
 import Navbar from "./Components/Navbar.jsx"
 
