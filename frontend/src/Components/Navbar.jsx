@@ -1,10 +1,12 @@
+import { Link } from 'react-router-dom'
+
 function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div className="container">
-                <a className="navbar-brand fw-bold" href="#">
+                <Link className="navbar-brand fw-bold" to="/">
                     Online Library
-                </a>
+                </Link>
 
                 <button
                     className="navbar-toggler"
@@ -18,27 +20,27 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="mainNavbar">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <a className="nav-link active" href="/">Home</a>
+                            <Link className="nav-link" to="/">
+                                Books
+                            </Link>
                         </li>
+
                         <li className="nav-item">
-                            <a className="nav-link" href="#catalog">Catalog</a>
+                            <Link className="nav-link" to="/authors">
+                                Authors
+                            </Link>
                         </li>
+
                         <li className="nav-item">
-                            <a className="nav-link" href="/add-author">Add Author</a>
+                            <Link className="nav-link" to="/categories">
+                                Categories
+                            </Link>
                         </li>
+
                         <li className="nav-item">
-                            <a className="nav-link" href="/add-category">Add Category</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/add-book">Add Book</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#login">Login</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="btn btn-outline-light ms-lg-3" href="#register">
-                                Register
-                            </a>
+                            <Link className="nav-link" to="/add-book">
+                                Add Book
+                            </Link>
                         </li>
                     </ul>
                 </div>
