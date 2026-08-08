@@ -6,6 +6,8 @@ import AddBookPage from './Pages/AddBookPage.jsx'
 import AddCategoryPage from './Pages/AddCategoryPage.jsx'
 import AuthorsPage from './Pages/AuthorsPage.jsx'
 import CategoriesPage from './Pages/CategoriesPage.jsx'
+import LoginPage from './Pages/LoginPage.jsx'
+import RegisterPage from './Pages/RegisterPage.jsx'
 
 import Navbar from './Components/Navbar.jsx'
 
@@ -24,6 +26,8 @@ function App() {
                 <Route path="/categories" element={<CategoriesPage />} />
                 <Route path="/add-category" element={<AddCategoryPage />} />
                 <Route path="/edit-category/:id" element={<AddCategoryPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
             </Routes>
         </>
     )

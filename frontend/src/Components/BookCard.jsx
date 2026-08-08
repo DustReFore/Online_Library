@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom'
 
 function BookCard({ book, onDelete }) {
+
+    const currentUser = JSON.parse(
+        localStorage.getItem('currentUser')
+    )
+
+    const isAdmin = currentUser?.role === 'ADMIN'
+
     return (
         <div className="card h-100 shadow-sm">
             <div className="card-body">
@@ -36,21 +43,23 @@ function BookCard({ book, onDelete }) {
                     Reserve book
                 </button>
 
-                <div className="d-flex gap-2">
-                    <Link
-                        to={`/edit-book/${book.id}`}
-                        className="btn btn-warning flex-fill"
-                    >
-                        Edit
-                    </Link>
+                {isAdmin && (
+                    <div className="d-flex gap-2 mt-2">
+                        <Link
+                            to={`/edit-book/${book.id}`}
+                            className="btn btn-warning flex-fill"
+                        >
+                            Edit
+                        </Link>
 
-                    <button
-                        className="btn btn-danger flex-fill"
-                        onClick={() => onDelete(book.id)}
-                    >
-                        Delete
-                    </button>
-                </div>
+                        <button
+                            className="btn btn-danger flex-fill"
+                            onClick={() => onDelete(book.id)}
+                        >
+                            Delete
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )
