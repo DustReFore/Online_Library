@@ -6,6 +6,8 @@ import com.example.se201_projektni_zadatak_artem_sukhomlinov_6083.service.Authen
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -20,8 +22,20 @@ public class AuthenticationController {
     }
 
     public record RegisterRequest(
+
+            @NotBlank(message = "Full name is required")
+            @Size(min = 2, max = 100)
             String fullName,
+
+            @NotBlank(message = "Email is required")
+            @Email(message = "Invalid email address")
             String email,
+
+            @NotBlank(message = "Password is required")
+            @Pattern(
+                    regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,64}$",
+                    message = "Password must contain uppercase, lowercase, number and special character"
+            )
             String password
     ) {
     }
@@ -51,10 +65,8 @@ public class AuthenticationController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public AuthResponse register(
-            @RequestBody RegisterRequest request
+            @Valid @RequestBody RegisterRequest request
     ) {
-        validateRegistration(request);
-
         try {
             User user = authenticationService.register(
                     request.fullName(),
@@ -90,42 +102,19 @@ public class AuthenticationController {
 
             return AuthResponse.fromUser(user);
         } catch (IllegalStateException exception) {
+            HttpStatus status =
+                    "Account is temporarily locked".equals(exception.getMessage())
+                            ? HttpStatus.LOCKED
+                            : HttpStatus.FORBIDDEN;
+
             throw new ResponseStatusException(
-                    HttpStatus.FORBIDDEN,
+                    status,
                     exception.getMessage()
             );
         } catch (IllegalArgumentException exception) {
             throw new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED,
                     exception.getMessage()
-            );
-        }
-    }
-
-    private void validateRegistration(RegisterRequest request) {
-        if (request.fullName() == null
-                || request.fullName().isBlank()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Full name is required"
-            );
-        }
-
-        if (request.email() == null
-                || !request.email().matches(
-                "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
-        )) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Invalid email address"
-            );
-        }
-
-        if (request.password() == null
-                || request.password().length() < 6) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Password must contain at least 6 characters"
             );
         }
     }

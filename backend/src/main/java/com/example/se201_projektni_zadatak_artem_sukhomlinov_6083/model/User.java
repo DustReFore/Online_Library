@@ -3,6 +3,7 @@ package com.example.se201_projektni_zadatak_artem_sukhomlinov_6083.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -40,6 +42,12 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Notification> notifications = new ArrayList<>();
+
+    @JsonIgnore
+    private int failedLoginAttempts = 0;
+
+    @JsonIgnore
+    private LocalDateTime lockedUntil;
 
     public User() {}
 
@@ -81,4 +89,20 @@ public class User {
 
     public List<Notification> getNotifications() {return notifications;}
     public void setNotifications(List<Notification> notifications) {this.notifications = notifications;}
+
+    public int getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(int failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+
+    public LocalDateTime getLockedUntil() {
+        return lockedUntil;
+    }
+
+    public void setLockedUntil(LocalDateTime lockedUntil) {
+        this.lockedUntil = lockedUntil;
+    }
 }

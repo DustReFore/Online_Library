@@ -49,7 +49,7 @@ function HomePage() {
         <main>
             <section className="bg-light py-5">
                 <div className="container text-center">
-                    <h1 className="display-5 fw-bold">Online Library</h1>
+                    <h1 className="display-5 fw-bold text-black">Online Library</h1>
                     <p className="lead text-muted">
                         Search, reserve and manage books in one simple web application.
                     </p>
@@ -58,7 +58,7 @@ function HomePage() {
 
             <section id="catalog" className="py-5">
                 <div className="container">
-                    <h2 className="mb-4">Book Catalog</h2>
+                    <h2 className="mb-4 text-black">Book Catalog</h2>
 
                     <SearchBar
                         searchTerm={searchTerm}
