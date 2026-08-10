@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function BookCard({ book, onDelete }) {
+function BookCard({ book, onDelete, onReserve }) {
 
     const currentUser = JSON.parse(
         localStorage.getItem('currentUser')
@@ -39,6 +39,7 @@ function BookCard({ book, onDelete }) {
                 <button
                     className="btn btn-primary w-100 mb-2"
                     disabled={!book.available}
+                    onClick={() => onReserve(book.id)}
                 >
                     Reserve book
                 </button>

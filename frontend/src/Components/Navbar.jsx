@@ -76,6 +76,15 @@ function Navbar() {
                         {currentUser ? (
                             <>
                                 <li className="nav-item">
+                                    <NavLink
+                                        className={getNavLinkClass}
+                                        to="/reservations"
+                                    >
+                                        My Reservations
+                                    </NavLink>
+                                </li>
+
+                                <li className="nav-item">
                                     <span className="navbar-text me-lg-3">
                                         {currentUser.fullName}
                                         {' '}

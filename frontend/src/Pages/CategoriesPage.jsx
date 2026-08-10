@@ -43,7 +43,7 @@ function CategoriesPage() {
     return (
         <div className="container py-5">
             <div className="d-flex justify-content-between mb-4">
-                <h2>Categories</h2>
+                <h2 className="text-black">Categories</h2>
 
                 <Link to="/add-category" className="btn btn-primary">
                     Add category

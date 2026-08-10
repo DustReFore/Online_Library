@@ -8,6 +8,7 @@ import AuthorsPage from './Pages/AuthorsPage.jsx'
 import CategoriesPage from './Pages/CategoriesPage.jsx'
 import LoginPage from './Pages/LoginPage.jsx'
 import RegisterPage from './Pages/RegisterPage.jsx'
+import ReservationsPage from './Pages/ReservationsPage.jsx'
 
 import Navbar from './Components/Navbar.jsx'
 
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/edit-category/:id" element={<AddCategoryPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/reservations" element={<ReservationsPage />} />
             </Routes>
         </>
     )

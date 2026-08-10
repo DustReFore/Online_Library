@@ -1,6 +1,6 @@
 import BookCard from './BookCard.jsx'
 
-function BookList({ books, onDelete }) {
+function BookList({ books, onDelete, onReserve }) {
     if (books.length === 0) {
         return (
             <div className="alert alert-warning">
@@ -19,6 +19,7 @@ function BookList({ books, onDelete }) {
                     <BookCard
                         book={book}
                         onDelete={onDelete}
+                        onReserve={onReserve}
                     />
                 </div>
             ))}

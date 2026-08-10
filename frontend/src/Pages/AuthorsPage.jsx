@@ -41,7 +41,7 @@ function AuthorsPage() {
     return (
         <div className="container py-5">
             <div className="d-flex justify-content-between mb-4">
-                <h2>Authors</h2>
+                <h2 className="text-black">Authors</h2>
 
                 <Link to="/add-author" className="btn btn-primary">
                     Add author
