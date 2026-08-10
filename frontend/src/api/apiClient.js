@@ -8,7 +8,13 @@ export async function apiFetch(url, options = {}) {
     })
 
     if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
+        const errorData = await response.json().catch(() => null)
+
+        throw new Error(
+            errorData?.detail ||
+            errorData?.message ||
+            `API error: ${response.status}`
+        )
     }
 
     if (response.status === 204) {

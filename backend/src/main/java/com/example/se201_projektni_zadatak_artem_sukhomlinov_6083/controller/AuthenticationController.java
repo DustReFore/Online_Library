@@ -33,7 +33,7 @@ public class AuthenticationController {
 
             @NotBlank(message = "Password is required")
             @Pattern(
-                    regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,64}$",
+                    regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_])[A-Za-z\\d@$!%*?&_]{8,64}$",
                     message = "Password must contain uppercase, lowercase, number and special character"
             )
             String password

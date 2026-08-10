@@ -7,9 +7,6 @@ function ReservationsPage() {
     )
 
     const [reservations, setReservations] = useState([])
-    const [loading, setLoading] = useState(
-        () => currentUser !== null
-    )
 
     useEffect(() => {
         if (!currentUser) {
@@ -29,11 +26,6 @@ function ReservationsPage() {
                     'Error loading reservations:',
                     error
                 )
-            })
-            .finally(() => {
-                if (!cancelled) {
-                    setLoading(false)
-                }
             })
 
         return () => {
@@ -69,16 +61,8 @@ function ReservationsPage() {
         )
     }
 
-    if (loading) {
-        return (
-            <div className="container py-5">
-                Loading...
-            </div>
-        )
-    }
-
     return (
-        <main className="container py-5">
+        <div className="container py-5">
             <h1 className="mb-4 text-black">My Reservations</h1>
 
             {reservations.length === 0 ? (
@@ -131,7 +115,7 @@ function ReservationsPage() {
                     ))}
                 </div>
             )}
-        </main>
+        </div>
     )
 }
 

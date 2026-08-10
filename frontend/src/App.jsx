@@ -9,6 +9,7 @@ import CategoriesPage from './Pages/CategoriesPage.jsx'
 import LoginPage from './Pages/LoginPage.jsx'
 import RegisterPage from './Pages/RegisterPage.jsx'
 import ReservationsPage from './Pages/ReservationsPage.jsx'
+import LoansPage from './Pages/LoansPage.jsx'
 
 import Navbar from './Components/Navbar.jsx'
 
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/reservations" element={<ReservationsPage />} />
+                <Route path="/loans" element={<LoansPage />} />
             </Routes>
         </>
     )

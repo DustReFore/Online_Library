@@ -44,7 +44,7 @@ function AddCategoryPage() {
 
     return (
         <div className="container py-5">
-            <h2 className="mb-4">
+            <h2 className="mb-4 text-black">
                 {isEdit ? 'Edit Category' : 'Add Category'}
             </h2>
 

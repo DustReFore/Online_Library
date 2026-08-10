@@ -21,3 +21,7 @@ export function cancelReservation(id) {
         method: 'PATCH',
     })
 }
+
+export function getActiveReservations() {
+    return apiFetch(`${API_URL}/active`)
+}

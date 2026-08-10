@@ -31,7 +31,7 @@ function RegisterPage() {
             navigate('/login')
         } catch (error) {
             console.error(error)
-            setMessage('Registration failed.')
+            setMessage(error.message)
         }
     }
 
@@ -39,7 +39,7 @@ function RegisterPage() {
         <div className="container py-5">
             <div className="card p-4 shadow-sm mx-auto"
                  style={{ maxWidth: '500px' }}>
-                <h2 className="mb-4">Register</h2>
+                <h2 className="mb-4 text-black">Register</h2>
 
                 {message && (
                     <div className="alert alert-danger">
@@ -76,7 +76,7 @@ function RegisterPage() {
                         <input
                             name="password"
                             type="password"
-                            minLength="6"
+                            minLength="8"
                             value={form.password}
                             onChange={handleChange}
                             className="form-control"

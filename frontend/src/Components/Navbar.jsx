@@ -85,6 +85,15 @@ function Navbar() {
                                 </li>
 
                                 <li className="nav-item">
+                                    <NavLink
+                                        className={getNavLinkClass}
+                                        to="/loans"
+                                    >
+                                        {isAdmin ? 'Loans' : 'My Loans'}
+                                    </NavLink>
+                                </li>
+
+                                <li className="nav-item">
                                     <span className="navbar-text me-lg-3">
                                         {currentUser.fullName}
                                         {' '}
