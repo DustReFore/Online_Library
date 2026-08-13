@@ -36,6 +36,12 @@ function BookCard({ book, onDelete, onReserve }) {
             </div>
 
             <div className="card-footer">
+                <Link
+                    to={`/books/${book.id}/reviews`}
+                    className="btn btn-outline-secondary w-100 mb-2"
+                >
+                    Reviews
+                </Link>
                 <button
                     className="btn btn-primary w-100 mb-2"
                     disabled={!book.available}
