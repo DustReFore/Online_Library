@@ -181,7 +181,7 @@ function ReviewsPage() {
                             className="btn btn-outline-primary mb-3"
                             onClick={handleEditOwnReview}
                         >
-                            Load my review for editing
+                            Edit my review
                         </button>
                     )}
 
